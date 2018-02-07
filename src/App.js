@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react'
 import { ThemeProvider } from '@hixme-ui/theme'
 import ContentContainer from '@hixme-ui/content-container'
 import Container from '@hixme-ui/container'
@@ -6,30 +6,52 @@ import Text from '@hixme-ui/text'
 import { Input, Button, FormGroup, Label } from '@hixme-ui/forms'
 import { Form, validation } from 'form-and-function'
 
-import logo from './logo.svg';
-import './App.css';
 
-function hasError({ active, touched, error }) { return !active && touched && error }
+// Error state helper
+function hasError({
+  active,
+  touched,
+  error
+}) {
+  return !active && touched && error
+}
 
-const SpecialInput = ({ ownProps, input, meta }) => (
-  <div>
-    <Input {...input} error={hasError(meta)} />
+// Field component to render label, input, and error message
+const FieldFormGroup = ({
+  ownProps: {
+    label
+  },
+  input,
+  meta
+}) => (
+  <FormGroup>
+    <Label>{label}</Label>
+    <Input
+      {...input}
+      error={hasError(meta)}
+    />
     {hasError(meta) && <Text error>{meta.error}</Text>}
-  </div>
+  </FormGroup>
 )
 
-const MyForm = ({ form, Field, ownProps: { title }, meta: { valid } }) => (
+// Full form details
+const MyForm = ({
+  form,
+  Field,
+  meta: { valid }
+}) => (
   <form {...form}>
-    <h2>{title}</h2>
-    <FormGroup>
-      <Label>First Name</Label>
-      <Field name='firstname' render={SpecialInput} hello='yes' />
-    </FormGroup>
+    <Field
+      name='firstname'
+      renderProps={{ label: 'First Name' }}
+      render={FieldFormGroup}
+     />
+    <Field
+      name='lastname'
+      renderProps={{ label: 'Last Name' }}
+      render={FieldFormGroup}
+     />
 
-    <FormGroup>
-      <Label>Last Name</Label>
-      <Field name='lastname' render={SpecialInput} hello='yes' />
-    </FormGroup>
     <Button
       submit
       submitting={false}
@@ -41,12 +63,10 @@ const MyForm = ({ form, Field, ownProps: { title }, meta: { valid } }) => (
   </form>
 )
 
-class App extends Component {
-  render() {
-    return (
-      <ThemeProvider>
-      <ContentContainer>
-        <Container textLeft>
+export default () => (
+  <ThemeProvider>
+    <ContentContainer>
+      <Container textLeft width='400px'>
         <Form
           name="my-form"
           render={MyForm}
@@ -62,18 +82,11 @@ class App extends Component {
               value.length > 3 ? valid() : invalid('Must be longer'),
           })}
           onSubmit={(values) => {
-            console.log('values = ', values)
-
-            return new Promise((resolve) => {
-              setTimeout(() => resolve, 2000)
-            })
+            // submit form
           }}
         />
-       </Container>
-      </ContentContainer>
-      </ThemeProvider>
-    );
-  }
-}
+      </Container>
+    </ContentContainer>
+  </ThemeProvider>
+)
 
-export default App;
