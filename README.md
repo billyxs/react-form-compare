@@ -2,6 +2,8 @@
 
 Some react form tests and comparisons.
 
+**Special thanks to the [@hixme-ui](https://github.com/hixme/hixme-ui) component library**
+
 
 ## Form and Function
 
