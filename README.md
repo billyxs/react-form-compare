@@ -8,7 +8,7 @@ Some react form tests and comparisons.
 ## Form and Function
 
 Basic form implentation.
-![Form and Function Example](https://github.com/billyxs/react-form-compare/blob/master/images/form-and-function-example.png?raw=true)
+![Form and Function Example](https://github.com/billyxs/react-form-compare/blob/master/images/form-and-function-example.png?raw=true =250x)
 
 
 
